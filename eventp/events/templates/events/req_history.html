@@ -1,0 +1,63 @@
+{% extends 'events/baseadmin.html' %}
+{% block title %}{{ Building }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <div class="col-sm-8 col-md-9">
+
+            <div class="panel panel-default">
+                <div class="panel-body" id="allotment-div">
+
+                    <h3>Request History</h3>
+
+                    {% if requests %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>App No</th>
+                            <th>Day</th>
+                            <th>User</th>
+                            <th>Venue</th>
+                            <th>Event</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for hr in requests %}
+                            <tr>
+                                <td>{{ hr.id }}</td>
+                                <td>{{ hr.allot_date }}</td>
+                                <td>{{ hr.club }}</td>
+                                <td>{{ hr.building }}</td>
+                                <td>{{ hr.event }}</td>
+                                <td>{% if hr.status == 1 %} 
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    {% else %}
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    {% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% else %}
+
+                    <h2>No pending requests</h2>
+
+                    {% endif %}
+
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

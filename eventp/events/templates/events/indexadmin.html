@@ -1,0 +1,58 @@
+{% extends 'events/baseadmin.html' %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="buildings-container container-fluid">
+
+	<div class="row">
+		<div class="col-sm-12">
+			<center><h1 style="font-family: Ubuntu; color:black;">VENUES</h1></center><br><hr>
+		</div>
+		{% if buildings %}
+			<div class="col-sm-12">
+			{% for building in buildings %}
+				<div class="col-sm-3">
+					<div class="thumbnail col">
+						<a href="{% url 'events:build_req' building.id %}">
+							<img src="{{ building.build_img.url }}" class="img-responsive">
+							<h3>{{ building.name }}</h3>
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+
+	{% if searchresults %}
+		<div class="row">
+			<div class="col-sm-12">
+				<h3>Search Result</h3>
+			</div>
+			{% for building in searchresults %}
+			<div class="col-sm-12">
+				<div class="col-sm-4">
+					<div class="thumbnail col">
+						<a href="{% url 'events:build_req' building.id %}">
+							<img src="{{ building.build_img.url }}" class="img-responsive">
+						</a>
+					</div>
+				</div>
+
+				<div class="caption col-sm-6">
+					<h2>{{ building.name }}</h2>
+					<h4>{{ building.desc }}</h4>
+				</div>
+
+				<div class="caption col-sm-2">
+					<h4>Capacity : {{ building.capacity }}</h4>
+
+					<a href="{% url 'events:build_req' building.id %}" class="btn btn-primary btn-sm" role="button">View Requests</a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+</div>
+{% endblock %}

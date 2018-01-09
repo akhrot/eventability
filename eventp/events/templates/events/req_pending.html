@@ -1,0 +1,65 @@
+{% extends 'events/baseadmin.html' %}
+{% block title %}{{ Building }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <div class="col-sm-8 col-md-9">
+
+            <div class="panel panel-default">
+                <div class="panel-body" id="allotment-div">
+
+                    <h3>Pending Requests</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    {% if pending_req %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>App No</th>
+                            <th>Day</th>
+                            <th>User</th>
+                            <th>Venue</th>
+                            <th>Event</th>
+                            <th><center>Approve</center></th>
+                            <th><center>Reject</center></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for pr in pending_req %}
+                            <tr>
+                                <td>{{ pr.id }}</td>
+                                <td>{{ pr.allot_date }}</td>
+                                <td>{{ pr.club }}</td>
+                                <td>{{ pr.building }}</td>
+                                <td>{{ pr.event }}</td>
+                                <td><center><a href="{% url 'events:req_accept' pr.id %}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></center></td>
+                                <td><center><a href="{% url 'events:req_reject' pr.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></center></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% else %}
+
+                    <h2>No pending requests</h2>
+
+                    {% endif %}
+
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
